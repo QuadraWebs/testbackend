@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReceiptImageController;
+use App\Http\Controllers\UserPreferenceController;
 
 
 Route::post('login', [AuthController::class, 'login']);
@@ -22,6 +23,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
    
     });
     
+    Route::post('/user-preference', [UserPreferenceController::class, 'store']);
+    Route::get('/user-preference', [UserPreferenceController::class, 'getUserPreferences']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
