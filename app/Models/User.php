@@ -41,4 +41,41 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function expenseCategories()
+    {
+        return $this->hasMany(ExpenseCategory::class);
+    }
+
+    /**
+     * Get the payment methods for the user.
+     */
+    public function paymentMethods()
+    {
+        return $this->hasMany(PaymentMethod::class);
+    }
+
+    /**
+     * Get the receipts for the user.
+     */
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
+
+    /**
+     * Get the tax filing periods for the user.
+     */
+    public function taxFilingPeriods()
+    {
+        return $this->hasMany(TaxFilingPeriod::class);
+    }
+
+    /**
+     * Get the tax filings for the user.
+     */
+    public function taxFilings()
+    {
+        return $this->hasMany(TaxFiling::class);
+    }
 }
