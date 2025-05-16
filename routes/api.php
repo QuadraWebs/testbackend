@@ -6,7 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReceiptImageController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserPreferenceController;
-
+use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\UserIncomeCategoryController;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
@@ -25,11 +26,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/tax-suggestions', [App\Http\Controllers\DashboardController::class, 'getTaxSuggestionsApi']);
 
     });
+    Route::get('/incomes/summary-report', [IncomeController::class, 'generateSummaryReport']);
 
+    Route::get('/incomes/statistics', [IncomeController::class, 'statistics']);
+    Route::apiResource('incomes', IncomeController::class);
+    
+    // Income category routes
+    Route::get('/income-categories/defaults', [UserIncomeCategoryController::class, 'getDefaultCategories']);
+    Route::apiResource('income-categories', UserIncomeCategoryController::class);
 
     
     Route::post('/user-preference', [UserPreferenceController::class, 'store']);
     Route::get('/user-preference', [UserPreferenceController::class, 'getUserPreferences']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
 });

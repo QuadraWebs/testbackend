@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\ExpenseCategory;
 use App\Models\PaymentMethod;
+use App\Models\UserIncomeCategory; // Add this import
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -140,6 +141,30 @@ class AuthController extends Controller
 
         // Batch insert payment methods
         PaymentMethod::insert($paymentMethodData);
+        
+        // Add default income categories
+        $incomeCategories = [
+            ['name' => 'salary', 'color' => '#10B981'], // green-500
+            ['name' => 'freelance', 'color' => '#3B82F6'], // blue-500
+            ['name' => 'investment', 'color' => '#8B5CF6'], // purple-500
+            ['name' => 'rental', 'color' => '#F59E0B'], // yellow-500
+            ['name' => 'business', 'color' => '#6366F1'], // indigo-500
+            ['name' => 'other', 'color' => '#6B7280'], // gray-500
+        ];
+        
+        // Prepare batch insert data for income categories
+        $incomeCategoryData = collect($incomeCategories)->map(function ($category) use ($userId) {
+            return [
+                'name' => $category['name'],
+                'color' => $category['color'],
+                'user_id' => $userId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        })->toArray();
+        
+        // Batch insert income categories
+        UserIncomeCategory::insert($incomeCategoryData);
     }
 
     public function login(Request $request)

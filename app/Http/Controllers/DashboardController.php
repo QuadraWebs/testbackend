@@ -139,11 +139,8 @@ class DashboardController extends Controller
                 [
                     'title' => 'Education and Training Expenses',
                     'description' => 'Investing in education and training for yourself or your children can be beneficial, as these expenses are deductible up to RM7,000 for self or RM8,000 for SSPN, helping to lower your tax liability.'
-                ],
-                [
-                    'title' => 'Deductible Expense Tracking',
-                    'description' => 'Always maintain detailed records of your deductible expenses, including categories like education, investments, and miscellaneous expenses, to ensure you can claim all possible reliefs.'
                 ]
+               
             ]
         ];
     }

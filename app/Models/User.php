@@ -83,4 +83,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(TaxFiling::class);
     }
+
+    public function incomes()
+{
+    return $this->hasMany(Income::class);
+}
+
+/**
+ * Get the income categories for the user.
+ */
+public function incomeCategories()
+{
+    return $this->hasMany(UserIncomeCategory::class);
+}
 }
