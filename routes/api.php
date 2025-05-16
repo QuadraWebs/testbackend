@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReceiptImageController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\UserPreferenceController;
@@ -22,8 +23,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('dashboard')->group(function () {
-        Route::get('/deductibility-summary', [App\Http\Controllers\DashboardController::class, 'getDeductibilitySummary']);
-        Route::get('/tax-suggestions', [App\Http\Controllers\DashboardController::class, 'getTaxSuggestionsApi']);
+        Route::get('/deductibility-summary', [DashboardController::class, 'getDeductibilitySummary']);
+        Route::get('/tax-suggestions', [DashboardController::class, 'getTaxSuggestionsApi']);
 
     });
     Route::get('/incomes/summary-report', [IncomeController::class, 'generateSummaryReport']);
@@ -35,7 +36,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/income-categories/defaults', [UserIncomeCategoryController::class, 'getDefaultCategories']);
     Route::apiResource('income-categories', UserIncomeCategoryController::class);
 
-    
+    Route::get('/expense-categories', [UserPreferenceController::class, 'getExpenseCategories']);
+    Route::post('/expense-categories', [UserPreferenceController::class, 'storeExpenseCategory']);
+    Route::post('/expenses', [UserPreferenceController::class, 'storeExpenses']);
+    Route::get('/get-recent-expenses', [UserPreferenceController::class, 'getRecentExpenses']);
+    Route::get('/get-expenses-summary', [UserPreferenceController::class, 'getExpensesSummary']);
+
     Route::post('/user-preference', [UserPreferenceController::class, 'store']);
     Route::get('/user-preference', [UserPreferenceController::class, 'getUserPreferences']);
 
