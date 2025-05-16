@@ -23,6 +23,7 @@ class User extends Authenticatable
         'nric',
         'phone_number',
         'tin',
+        'data_filled', 
     ];
 
     /**
@@ -43,6 +44,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'data_filled' => 'boolean', 
     ];
 
     public function expenseCategories()

@@ -13,12 +13,9 @@ Route::post('register', [AuthController::class, 'register']);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::middleware('auth:sanctum')->get('/user', [UserPreferenceController::class, 'getUser']);
 
     Route::prefix('receipts')->group(function () {
-        // Process a single receipt image with AI
         Route::post('/images/process-ai', [ReceiptImageController::class, 'processWithAi']);
         Route::post('/', [ReceiptController::class, 'storeFromJson']);
     });

@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Validator;
 
 class UserPreferenceController extends Controller
 {
+    public function getUser(Request $request)
+    {
+        $user = $request->user();
+        $userData = $user->toArray();
+        
+        // Ensure data_filled is included in the response
+        if (!isset($userData['data_filled'])) {
+            $userData['data_filled'] = $user->data_filled ?? false;
+        }
+        
+        return response()->json($userData);
+    }
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -24,7 +37,6 @@ class UserPreferenceController extends Controller
             'tin' => 'nullable|string',
             'workLocation' => 'nullable|string',
         ]);
-        \Log::info('Request Data:', $request->all());
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -33,7 +45,6 @@ class UserPreferenceController extends Controller
         $userId = Auth::id();
         $user = User::find($userId);
         
-        // Update user table fields
         $user->update([
             'nric' => $request->nric,
             'name' => $request->nricName,
@@ -41,7 +52,6 @@ class UserPreferenceController extends Controller
             'tin' => $request->tin,
         ]);
         
-        // Fields to be saved in user_preferences table
         $preferencesToSave = [
             'businessMeals' => $request->businessMeals,
             'businessTravel' => $request->businessTravel,
@@ -53,15 +63,12 @@ class UserPreferenceController extends Controller
         
         $savedPreferences = [];
         
-        // Save each preference
         foreach ($preferencesToSave as $question => $answer) {
             if ($answer !== null) {
-                // Special handling for array values like personalDeductions
                 if (is_array($answer)) {
                     $answer = json_encode($answer);
                 }
                 
-                // Update or create the preference
                 UserPreference::updateOrCreate(
                     [
                         'user_id' => $userId,
@@ -75,7 +82,11 @@ class UserPreferenceController extends Controller
                 $savedPreferences[$question] = $answer;
             }
         }
-        \Log::info('User preferences saved successfully', ['user_id' => $userId, 'preferences' => $savedPreferences]);
+        
+        $user->update([
+            'data_filled' => true
+        ]);
+
         return response()->json([
             'message' => 'User preferences saved successfully',
             'user_data' => [
