@@ -100,14 +100,15 @@ class ReceiptAiService
                 'vendor_name' => 'Uncle Jack SOGO',
                 'total_amount' => 14.0,
                 'date' => '26/04/25',
+                'currency' => 'MYR',
                 'items' => [
                     [
                         'description' => 'UJ SIGNATURE BURGER W FRIED CHICKEN',
                         'quantity' => 1,
                         'unit_price' => 13.2,
                         'total_price' => 13.2,
-                        'expense_category' => 'Miscellaneous',
-                        'notes' => 'client dinner'
+                        'expense_category' => 'Food',
+                        'notes' => 'Client dinner'
                     ]
                 ],
                 'payment_method' => 'Credit Card',
@@ -119,6 +120,7 @@ class ReceiptAiService
                 'vendor_name' => 'Machines Sdn Bhd',
                 'total_amount' => 3154.19,
                 'date' => '2025-02-12',
+                'currency' => 'MYR',
                 'items' => [
                     [
                         'description' => 'Apple Mac mini M4 chip 16GB RAM, 512GB SSD',
@@ -131,7 +133,73 @@ class ReceiptAiService
                 'payment_method' => 'SPayLater',
                 'vendor_address' => 'No. 3, Jalan Kajibumi U1/70, Temasya Niaga, Temasya Glenmarie, Seksyen U1',
                 'notes' => '',
-                'is_deductible' => false
+                'is_deductible' => true
+            ],
+            [
+                'vendor_name' => 'Uncle Jack SOGO',
+                'total_amount' => 3.07,
+                'date' => '26/04/25',
+                'currency' => 'USD',
+                'items' => [
+                    [
+                        'description' => 'UJ SIGNATURE BURGER W FRIED CHICKEN',
+                        'quantity' => 1,
+                        'unit_price' => 3.07,
+                        'total_price' => 3.07,
+                        'expense_category' => 'Miscellaneous'
+                    ]
+                ],
+                'payment_method' => 'Credit Card',
+                'vendor_address' => 'LG-K11, Kompleks SOGO, 190 Jalan Tuanku Abdul Rahman, 50100 Kuala Lumpur.',
+                'notes' => '',
+                'is_deductible' => false,
+                'conversion_message' => 'Receipt processed in USD, converted to MYR for tax purposes. Please verify the actual amount with your bank transaction.'
+            ],
+            [
+                'vendor_name' => 'Machines Sdn Bhd',
+                'total_amount' => 3154.19,
+                'date' => '2025-02-12',
+                'currency' => 'MYR',
+                'items' => [
+                    [
+                        'description' => 'Apple Mac mini M4 chip 16GB RAM, 512GB SSD',
+                        'quantity' => 1,
+                        'unit_price' => 3349.0,
+                        'total_price' => 3349.0,
+                        'expense_category' => 'Electronic Gadget'
+                    ]
+                ],
+                'payment_method' => 'SPayLater',
+                'vendor_address' => 'No. 3, Jalan Kajibumi U1/70, Temasya Niaga, Temasya Glenmarie, Seksyen U1',
+                'notes' => '',
+                'is_deductible' => true
+            ],
+            [
+                'vendor_name' => 'Amazon Web Services',
+                'total_amount' => 125.50,
+                'date' => '2025-03-01',
+                'currency' => 'USD',
+                'items' => [
+                    [
+                        'description' => 'EC2 Instance Usage',
+                        'quantity' => 1,
+                        'unit_price' => 85.30,
+                        'total_price' => 85.30,
+                        'expense_category' => 'Cloud Services'
+                    ],
+                    [
+                        'description' => 'S3 Storage',
+                        'quantity' => 1,
+                        'unit_price' => 40.20,
+                        'total_price' => 40.20,
+                        'expense_category' => 'Cloud Services'
+                    ]
+                ],
+                'payment_method' => 'Credit Card',
+                'vendor_address' => '410 Terry Ave N, Seattle, WA 98109, United States',
+                'notes' => 'Monthly cloud services',
+                'is_deductible' => true,
+                'conversion_message' => 'Receipt processed in USD. Converted to MYR at the rate of 1 USD = 4.15 MYR. Total in MYR: RM 520.83'
             ]
         ];
         

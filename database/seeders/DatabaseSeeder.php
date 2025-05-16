@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DeductibilityTypeSeeder::class,
         ]);
+        $this->call([
+            FaqSeeder::class,
+        ]);
     }
 }
