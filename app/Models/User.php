@@ -23,6 +23,7 @@ class User extends Authenticatable
         'nric',
         'phone_number',
         'tin',
+        'age', 
         'data_filled', 
     ];
 

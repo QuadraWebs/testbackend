@@ -114,6 +114,7 @@ class UserPreferenceController extends Controller
             'statementMethod' => 'nullable|string',
             'tin' => 'nullable|string',
             'workLocation' => 'nullable|string',
+            'age' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
@@ -128,6 +129,7 @@ class UserPreferenceController extends Controller
             'name' => $request->nricName,
             'phone_number' => $request->phoneNumber,
             'tin' => $request->tin,
+            'age' => $request->age,
         ]);
         
         $preferencesToSave = [
@@ -172,6 +174,7 @@ class UserPreferenceController extends Controller
                 'nric_name' => $user->name,
                 'phone_number' => $user->phone_number,
                 'tin' => $user->tin,
+                'age' => $user->age, 
             ],
             'preferences' => $savedPreferences
         ], 200);
@@ -439,6 +442,7 @@ class UserPreferenceController extends Controller
             'nricName' => $user->nric_name,
             'phoneNumber' => $user->phone_number,
             'tin' => $user->tin,
+            'age' => $user->age,
         ];
 
         \Log::info('Formatted Preferences:', ['response' => $response]);
