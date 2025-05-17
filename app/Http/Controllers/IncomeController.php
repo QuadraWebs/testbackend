@@ -447,6 +447,17 @@ public function generateSummaryReport(Request $request)
     }
 }
 
+public function getIncomeSummary()
+{
+    $user = Auth::user();
+    $totalIncome = $user->incomes->sum('amount');
+ 
+
+    return response()->json([
+        'annualIncome' => $totalIncome,
+    ]);
+}
+
 /**
  * Calculate estimated tax based on taxable income.
  * This is a simplified version of Malaysian progressive tax rates.

@@ -94,9 +94,11 @@ class ReceiptImageController extends Controller
    /**
  * Process an uploaded image with AI for text extraction.
  */
+/**
+ * Process an uploaded image with AI for text extraction.
+ */
 public function processWithAi(Request $request)
 {
-    
     // Validate the request
     $request->validate([
         'image' => 'required|file|mimes:jpeg,png,jpg,gif,pdf|max:10240',
@@ -106,8 +108,7 @@ public function processWithAi(Request $request)
         // Get the uploaded file
         $file = $request->file('image');
         
-        // Create a temporary ReceiptImage object to pass to the service
-        // This won't be saved to the database
+        // Create a temporary object with the image data
         $tempImage = new \stdClass();
         $tempImage->original_filename = $file->getClientOriginalName();
         $tempImage->mime_type = $file->getMimeType();
@@ -135,6 +136,7 @@ public function processWithAi(Request $request)
         ], 500);
     }
 }
+
 
    
 }

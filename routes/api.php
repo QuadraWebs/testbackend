@@ -41,10 +41,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/expenses', [UserPreferenceController::class, 'storeExpenses']);
     Route::get('/get-recent-expenses', [UserPreferenceController::class, 'getRecentExpenses']);
     Route::get('/get-expenses-summary', [UserPreferenceController::class, 'getExpensesSummary']);
+    Route::get('/get-income-summary', [IncomeController::class, 'getIncomeSummary']);
 
     Route::post('/user-preference', [UserPreferenceController::class, 'store']);
     Route::get('/user-preference', [UserPreferenceController::class, 'getUserPreferences']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Chatbot routes
+    Route::post('/chat', [App\Http\Controllers\ChatbotController::class, 'chat']);
+    Route::get('/chat/history', [App\Http\Controllers\ChatbotController::class, 'history']);
+    Route::delete('/chat/history', [App\Http\Controllers\ChatbotController::class, 'clearHistory']);
 
 });

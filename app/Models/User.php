@@ -97,4 +97,9 @@ public function incomeCategories()
 {
     return $this->hasMany(UserIncomeCategory::class);
 }
+
+public function chatbotLogs()
+{
+    return $this->hasMany(ChatbotLog::class);
+}
 }

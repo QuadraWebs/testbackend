@@ -8,6 +8,7 @@ use App\Models\DeductibilityType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -122,28 +123,46 @@ class DashboardController extends Controller
      *
      * @return array
      */
-    private function getTaxSuggestions()
-    {
-        // In a production environment, this would call an AI API
-        // For now, return mock suggestions
-        return [
-            'suggestions' => [
-                [
-                    'title' => 'Retirement Savings Contributions',
-                    'description' => 'Consider contributing to a Private Retirement Scheme (PRS) or increasing your SSPN and EPF contributions to maximize your tax relief and secure your retirement savings.'
-                ],
-                [
-                    'title' => 'Medical and Health Expenses',
-                    'description' => 'Keep track of any medical expenses, such as medical examinations and vaccinations, as these can be deducted up to RM10,000, reducing your taxable income.'
-                ],
-                [
-                    'title' => 'Education and Training Expenses',
-                    'description' => 'Investing in education and training for yourself or your children can be beneficial, as these expenses are deductible up to RM7,000 for self or RM8,000 for SSPN, helping to lower your tax liability.'
-                ]
-               
-            ]
-        ];
+
+     
+  /**
+ * Get AI-powered tax suggestions based on user's spending patterns.
+ *
+ * @return array
+ */
+private function getTaxSuggestions()
+{
+    try {
+        // Call the external API
+        $apiBaseUrl = 'http://47.250.52.250:8000';
+        $response = Http::timeout(10)->get($apiBaseUrl . '/tax-suggestions');
+        
+        if ($response->successful()) {
+            \Log::info('Tax suggestions API response received', [
+                'status' => $response->status(),
+                'data' => $response->json()
+            ]);
+            
+            return $response->json();
+        }
+        
+        \Log::warning('Tax suggestions API returned non-success status', [
+            'status' => $response->status(),
+            'response' => $response->body()
+        ]);
+        
+        // Fallback to default suggestions if API call fails
+    } catch (\Exception $e) {
+        \Log::error('Error calling tax suggestions API', [
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+        
+        // Fallback to default suggestions on exception
     }
+}
+
+
     
     /**
      * Get deductibility summary data for API.
