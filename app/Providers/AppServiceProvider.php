@@ -24,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Register Sanctum routes manually
-        Route::group(['prefix' => 'sanctum', 'namespace' => 'Laravel\Sanctum\Http\Controllers'], function () {
-            Route::get('/csrf-cookie', 'CsrfCookieController@show')->middleware('web');
-        });
+        // Route::group(['prefix' => 'sanctum', 'namespace' => 'Laravel\Sanctum\Http\Controllers'], function () {
+        //     Route::get('/csrf-cookie', 'CsrfCookieController@show')->middleware('web');
+        // });
 
         // Define the 'api' rate limiter
         RateLimiter::for('api', function (Request $request) {
